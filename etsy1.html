@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etsy Clone</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      background-color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #F1641E;
+      cursor: pointer;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .categories {
+      position: relative;
+    }
+
+    .categories button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #5b5b5b;
+      cursor: pointer;
+    }
+
+    .categories button:hover {
+      color: #333;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+      list-style: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .dropdown li {
+      padding: 5px 10px;
+      cursor: pointer;
+      color: #5b5b5b;
+    }
+
+    .dropdown li:hover {
+      background-color: #f5f5f5;
+    }
+
+    .categories:hover .dropdown {
+      display: block;
+    }
+
+    .search-bar {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  width: 70%;
+  padding: 10px 20px;
+  border: 1px solid #F1641E;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search-bar button {
+  background-color: #F1641E;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #e5530d;
+}
+   
+    .icon-section a {
+      text-decoration: none;
+      color: #5b5b5b;
+      font-size: 18px;
+      margin-left: 15px;
+      transition: color 0.3s;
+    }
+
+    .icon-section a:hover {
+      color: #333;
+    }
+
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup {
+      background-color: white;
+      padding: 20px;
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .popup button {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background-color: #555;
+    }
+
+    .popup .alt-login {
+      margin: 20px 0 10px;
+      text-align: center;
+      color: #888;
+    }
+
+    .popup .social-login button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup .social-login button:hover {
+      background-color: #eaeaea;
+    }
+
+    #find-registry-form .popup {
+      background-color: white;
+      padding: 20px;
+      width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    #find-registry-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    #find-registry-form button {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #find-registry-form button[type="submit"] {
+      background-color: #F1641E;
+      color: white;
+    }
+
+    #find-registry-form button[type="button"] {
+      background-color: #ddd;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo" id="home-button">Etsy</div>
+
+    <nav>
+      <div class="categories">
+        <button>Categories</button>
+        <ul class="dropdown">
+          <li>Accessories</li>
+          <li>Art & Collectibles</li>
+          <li>Baby</li>
+          <li>Bags & Purses</li>
+          <li>Bath & Beauty</li>
+          <li>Books, Movies & Music</li>
+          <li>Clothing</li>
+          <li>Craft Supplies & Tools</li>
+          <li>Electronics & Accessories</li>
+          <li>Gifts</li>
+          <li>Home & Living</li>
+          <li>Jewelry</li>
+        </ul>
+      </div>
+    </nav>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for anything" style="border-radius: 20px; padding: 10px 20px; border: 1px solid #F1641E; outline: none;">
+      <button style="background-color: #F1641E; color: white; border: none; border-radius: 20px; padding: 10px 20px; margin-left: 10px; cursor: pointer;">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+    <div class="icon-section">
+      <a href="#" id="signInBtn">Sign In</a>
+      <a href="#" id="favorites-button"><i class="fas fa-heart"></i></a>
+      <a href="#" id="cart-button"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+  </header>
+
+  <div style="background-color: white; padding: 10px 20px; border-bottom: 1px solid #ddd;">
+    <nav style="display: flex; justify-content: center; gap: 30px; font-family: Arial, sans-serif; font-size: 14px; color: #5b5b5b;">
+      <a href="#" id="gifts-button" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+        <i class="fas fa-gift" style="margin-right: 5px;"></i> Gifts
+      </a>
+      <a href="#" id="valentine-gifts-button" style="text-decoration: none; color: inherit;">Valentine's Day Gifts</a>
+      <a href="#home-favorites" style="text-decoration: none; color: inherit;">Home Favorites</a>
+      <a href="#fashion-finds" style="text-decoration: none; color: inherit;">Fashion Finds</a>
+      <a href="#registry" style="text-decoration: none; color: inherit;">Registry</a>
+    </nav>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <span class="close-btn" id="closeBtn">&times;</span>
+      <h2>Sign in</h2>
+      <input type="email" placeholder="Email address" required>
+      <input type="password" placeholder="Password" required>
+      <div>
+        <input type="checkbox" id="staySignedIn">
+        <label for="staySignedIn">Stay signed in</label>
+      </div>
+      <button>Sign In</button>
+      <div class="alt-login">OR</div>
+      <div class="social-login">
+        <button>Continue with Google</button>
+        <button>Continue with Facebook</button>
+        <button>Continue with Apple</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-content" style="text-align:center; padding:20px;">
+    <h2>Welcome to Etsy Clone</h2>
+    <p>Explore our amazing collections and save your favorites!</p>
+  </div>
+
+  <div id="favorites-section" class="section" style="display: none;">
+    <h1>Favorite Items</h1>
+    <p>Sign in</p>
+    <p>Don't lose your faves! Sign in or create an account.</p>
+    <p>Guest favorites are only saved to your device for 7 days, or until you clear your cache.</p>
+  </div>
+
+  <div id="cart-section" class="section" style="display: none;">
+    <h1>Your Cart</h1>
+    <p>Buy confidently with Etsy's Purchase Protection program for buyers, get a full refund in the rare case your item doesn't arrive, arrives damaged, or isn't as described. See eligibility</p>
+    <p>Your cart is empty.</p>
+  </div>
+
+  <div id="gifts-section" class="section" style="display: none; text-align: center; padding: 20px;">
+    <h1>Extra-special gifting made extra-easy</h1>
+    <p>Discover perfect picks for the occasion!</p>
+  </div>
+
+  <div id="valentine-gifts-section" class="section" style="display: none; text-align: center; padding: 20px;">
+    <h1>Gifts / Valentine's Day Gifts</h1>
+    <h2>Valentine's Day Gifts</h2>
+    <p>Love can't be late. Find gifts that ship in 3 days or less.</p>
+    <p>*Orders processed in up to 3 business days. Actual delivery times will vary.</p>
+  </div>
+
+  <div id="home-favorites-section" class="section" style="display: none; text-align: center; padding: 20px;">
+    <h1 style="font-size: 36px; text-transform: uppercase;">HOME FAVORITES</h1>
+    <p style="font-size: 18px; color: #5b5b5b; max-width: 600px; margin: 0 auto;">
+      Be our guest! Time to spruce up your living space with affordable statement pieces, essential finds, and decor to adore.
+    </p>
+  </div>
+
+
+  <div id="fashion-finds-section" class="section" style="display: none; text-align: center; padding: 20px;">
+    <h1 style="font-size: 36px; text-transform: uppercase;">FASHION FINDS</h1>
+    <p style="font-size: 18px; color: #5b5b5b; max-width: 600px; margin: 0 auto;">
+      Time for a fresh start! Your best year yet begins with trending finds, vintage pieces, and stunning accessories for any budget.
+    </p>
+  </div>
+
+ 
+  <div id="registry-section" class="section" style="display: none; text-align: center; padding: 20px;">
+    <h1 style="font-size: 36px; text-transform: uppercase;">Etsy Registry</h1>
+    <p style="font-size: 18px; color: #5b5b5b; max-width: 600px; margin: 20px auto;">
+      Make every milestone meaningful with extra-special gifts.
+    </p>
+    <button style="padding: 10px 20px; font-size: 16px; background-color: #F1641E; color: white; border: none; border-radius: 5px; cursor: pointer;">
+      Find a registry
+    </button>
+  </div>
+
+
+  <div id="find-registry-form" class="overlay" style="display: none;">
+    <div class="popup">
+      <span class="close-btn" id="closeRegistryForm">&times;</span>
+      <h2>Find a registry</h2>
+      <form id="registry-search-form">
+        <input type="text" id="first-name" placeholder="First name" required>
+        <input type="text" id="last-name" placeholder="Last name" required>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="button" id="cancel-registry-search" style="padding: 10px 20px; font-size: 16px; background-color: #ddd; color: #333; border: none; border-radius: 5px; cursor: pointer;">
+            Cancel
+          </button>
+          <button type="submit" style="padding: 10px 20px; font-size: 16px; background-color: #F1641E; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+
+    const signInBtn = document.getElementById('signInBtn');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const homeButton = document.getElementById('home-button');
+
+    signInBtn.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+    });
+
+
+    closeBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+      }
+    });
+
+
+    homeButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      showSection("main-content");
+    });
+
+    function showSection(sectionId) {
+      document.getElementById("main-content").style.display = "none"; 
+      document.getElementById("favorites-section").style.display = "none"; 
+      document.getElementById("cart-section").style.display = "none"; 
+      document.getElementById("gifts-section").style.display = "none"; 
+      document.getElementById("valentine-gifts-section").style.display = "none"; 
+      document.getElementById("home-favorites-section").style.display = "none"; 
+      document.getElementById("fashion-finds-section").style.display = "none"; 
+      document.getElementById("registry-section").style.display = "none"; 
+      
+      document.getElementById(sectionId).style.display = "block";
+    }
+
+
+    document.getElementById("favorites-button").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("favorites-section");
+    });
+
+  
+    document.getElementById("cart-button").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("cart-section");
+    });
+
+    
+    document.getElementById("gifts-button").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("gifts-section");
+    });
+
+
+    document.getElementById("valentine-gifts-button").addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("valentine-gifts-section");
+    });
+
+    
+    document.querySelector('a[href="#home-favorites"]').addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("home-favorites-section");
+    });
+
+ 
+    document.querySelector('a[href="#fashion-finds"]').addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("fashion-finds-section");
+    });
+
+    
+    document.querySelector('a[href="#registry"]').addEventListener("click", function(event) {
+      event.preventDefault();
+      showSection("registry-section");
+    });
+
+   
+    document.querySelector('#registry-section button').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('find-registry-form').style.display = 'flex';
+    });
+
+   
+    document.getElementById('cancel-registry-search').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('find-registry-form').style.display = 'none';
+    });
+
+    
+    document.getElementById('closeRegistryForm').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('find-registry-form').style.display = 'none';
+    });
+
+    
+    document.getElementById('registry-search-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const firstName = document.getElementById('first-name').value;
+      const lastName = document.getElementById('last-name').value;
+      alert(`Searching for registry: ${firstName} ${lastName}`);
+      document.getElementById('find-registry-form').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
